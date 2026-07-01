@@ -1,0 +1,61 @@
+
+class LRUCache {
+  public:
+  class Node{
+    public:
+        int key,val;
+        Node*prev,*next;
+        Node(int _key,int _val){
+            key=_key;
+            val=_val;
+            prev=nullptr;
+            next=nullptr;
+        }
+  };
+  Node*head=new Node(-1,-1);
+  Node*tail=new Node(-1,-1);
+  int size;
+  unordered_map<int,Node*>mpp;
+  LRUCache(int capacity) {
+    size=capacity;
+    head->next=tail;
+    tail->prev=head;   
+  }
+  void Addnode(Node*newnode){
+    Node*temp=head->next;
+    newnode->next=temp;
+    newnode->prev=head;
+    head->next=newnode;
+    temp->prev=newnode;
+  }
+  void deletenode(Node*delnode){
+    Node*delprev=delnode->prev;
+    Node*delnext=delnode->next;
+    delprev->next=delnext;
+    delnext->prev=delprev;    
+  }
+  int get(int key_) {
+    if(mpp.find(key_)==mpp.end()) return -1;
+    Node*resnode=mpp[key_];
+    deletenode(resnode);
+    Addnode(resnode);
+    return resnode->val;
+  }
+  void put(int key_, int value) {
+    if(mpp.find(key_)!=mpp.end()){
+        Node*exist=mpp[key_];
+        deletenode(exist);
+        mpp.erase(key_);
+        delete exist;
+    }
+    if(mpp.size()==size){
+        Node*lru=tail->prev;
+        deletenode(lru);
+        mpp.erase(lru->key);
+        delete lru;
+    }
+    Node*newnode=new Node(key_,value);
+    Addnode(newnode);
+    mpp[key_]=newnode;  
+  }
+};
