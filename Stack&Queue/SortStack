@@ -1,0 +1,20 @@
+class Solution {
+public:
+    void InsertElement(stack<int>&st,int x){
+        if(st.empty() || x>=st.top()){
+            st.push(x);
+            return;
+        }
+        int temp=st.top();
+        st.pop();
+        InsertElement(st,x);
+        st.push(temp);
+        }
+    void sortStack(stack<int> &st) {
+        if(st.empty()) return ;
+        int x=st.top();
+        st.pop();
+        sortStack(st);
+        InsertElement(st,x);
+    }
+};
