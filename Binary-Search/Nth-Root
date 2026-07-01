@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int Multiply(int number,int n){
+        int ans=1;
+        for(int i=0;i<n;i++){
+            ans*=number;
+        }
+        return ans;
+    }
+    
+    int NthRoot(int N, int M) {
+        int low=1;
+        int high=M;
+        while(low<=high){
+            int mid=(low+high)/2;
+            int val=Multiply(mid,N);
+        
+        if(val==M) return mid;
+        else if(val<M) low=mid+1;
+        else high=mid-1;
+        }
+        return -1;
+    }
+};
