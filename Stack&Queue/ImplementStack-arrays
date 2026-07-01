@@ -1,0 +1,21 @@
+class ArrayStack {
+public:
+    int st[100];
+    int i=-1;
+    ArrayStack() {
+    }    
+    void push(int x) {
+        i++;
+        st[i]=x;   
+    }    
+    int pop() {
+        return st[i--];  
+    }    
+    int top() {
+        return st[i];
+    }   
+    bool isEmpty() {
+        if(i==-1) return true;
+        return false;
+    }
+};
