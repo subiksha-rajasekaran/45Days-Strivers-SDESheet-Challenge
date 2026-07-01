@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool CanPlace(vector<int>&nums,int dist,int cows){
+        int count=1;
+        int last=nums[0];
+        for(int i=1;i<nums.size();i++){
+            if(nums[i]-last>=dist){
+                count++;
+                last=nums[i];
+            }
+            if(count>=cows) return true;        
+         }
+         return false;
+    }
+    int aggressiveCows(vector<int> &nums, int k) {
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        int low=1;int high=nums[n-1]-nums[0];
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(CanPlace(nums,mid,k)) low=mid+1;
+            else high=mid-1;
+        }
+        return high;
+        
+    }
+};
