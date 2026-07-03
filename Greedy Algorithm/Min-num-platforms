@@ -1,0 +1,21 @@
+class Solution{
+    public:
+    int findPlatform(vector<int>& Arrival, vector<int>& Departure){
+        int maxcnt=0;int count=0;
+        sort(Arrival.begin(),Arrival.end());
+        sort(Departure.begin(),Departure.end());
+        int n=Arrival.size();int i=0;int j=0;
+        while(i<n && j<n){
+            if(Arrival[i]<=Departure[j]){
+                count++;;
+                i++;
+            }
+            else{
+                count=count-1;
+                j++;
+            }
+            maxcnt=max(maxcnt,count);
+        }
+        return maxcnt;
+    }
+};
