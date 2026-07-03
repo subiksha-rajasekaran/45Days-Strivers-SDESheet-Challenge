@@ -1,0 +1,27 @@
+class Solution{
+    public:
+    struct Data{
+        int start;int end;int pos;
+    };
+    static bool comparative(Data val1,Data val2){
+            if(val1.end==val2.end) return val1.pos<val2.pos;
+            else return val1.end<val1.end;
+        }
+    int maxMeetings(vector<int>& start, vector<int>& end){
+        int n=start.size();vector<Data>arr(n);
+        for(int i=0;i<n;i++){
+            arr[i].start=start[i];
+            arr[i].end=end[i];
+            arr[i].pos=i+1;
+        }   
+        sort(arr.begin(),arr.end(),comparative);
+        int count=1;int endtime=arr[0].end;
+        for(int i=1;i<n;i++){
+            if(arr[i].start>endtime){
+                count+=1;
+                endtime=arr[i].end;          
+            }
+        }
+        return count;       
+    }
+};
