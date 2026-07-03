@@ -1,0 +1,32 @@
+class Solution {
+public:
+    struct Item{
+        long long val;
+        long long wt;
+        double ratio;
+    };
+    static bool comparative(Item a,Item b){
+        return a.ratio>b.ratio;
+    }
+    double fractionalKnapsack(vector<long long>& val, vector<long long>& wt, long long capacity) {
+        int n=val.size();
+        vector<Item>items;
+        for(int i=0;i<n;i++){
+            items.push_back({val[i],wt[i],(double)val[i]/wt[i]});
+        }
+            sort(items.begin(),items.end(),comparative);
+            double ans=0.0;
+            for(int i=0;i<n;i++){
+                if(capacity>=items[i].wt){
+                    ans+=items[i].val;
+                    capacity-=items[i].wt;
+                }
+                else{
+                    ans+=items[i].ratio*capacity;
+                    break;
+                }
+            }
+        return ans;
+    }
+
+};
