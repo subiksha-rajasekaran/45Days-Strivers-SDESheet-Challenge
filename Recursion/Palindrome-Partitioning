@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool isPalindrome(int i,int j,string &s){
+        while(i<j){
+            if(s[i]!=s[j]) return false;
+            i++;
+            j--;            
+        }
+        return true;
+    }
+    void Function(int index,int n,string &s,vector<string>&ds,vector<vector<string>>&result){
+        if(index==n) {
+            result.push_back(ds);
+            return;
+        }
+        for(int i=index;i<n;i++){
+            if(isPalindrome(index,i,s)){
+                ds.push_back(s.substr(index,i-index+1));
+                Function(i+1,n,s,ds,result);
+                ds.pop_back();
+            }
+        }
+    }
+    vector<vector<string> > partition(string s) {
+        int n=s.size();
+        vector<vector<string>>result;
+        vector<string>ds;
+        Function(0,n,s,ds,result);
+        return result;
+    }
+};
